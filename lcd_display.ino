@@ -106,10 +106,6 @@ void setup()
 
 void loop() 
 {
-    //hit();
-    //miss();
-    //winner(1);
-    //winner(2);
    allOff();
    STARTGAME = RESET;
    RESET = false;
@@ -123,7 +119,6 @@ void loop()
       theaterChaseRainbow(25);
       //rainbow();
   }
-  //start();
   shipCnt[0] = 5;
   shipCnt[1] = 5; //************************************
   initialize();
@@ -137,18 +132,18 @@ void start(){
   
   int cnt_ship_place = 0;
   while( cnt_ship_place < 3){
-//    if(!RESET){
-//      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//      if(!RESET){
-//        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//      }
-//      else{
-//        return;
-//      }
-//    }
-//    else{
-//        return;
-//    }
+    if(!RESET){
+      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+      if(!RESET){
+        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+      }
+      else{
+        return;
+      }
+    }
+    else{
+        return;
+    }
     if (cnt_ship_place == 0){
       place_ship_three(cnt_ship_place + 1);
     }
@@ -162,25 +157,25 @@ void start(){
   allOff();
 
   // Fire
-  while((shipCnt[0] != 0) && (shipCnt[1] !=0) ){
+  while( (!RESET ) &&((shipCnt[0] != 0) && (shipCnt[1] !=0)) ){
     place_bomb();
   }
   
   int cnt = 5;
-  while( cnt > 0){
+  while((!RESET ) && ( cnt > 0)){
         cnt--;
-//        if(!RESET){
-//          RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//          if(!RESET){
-//            RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//          }
-//          else{
-//            break;
-//          }
-//        }
-//        else{
-//            break;
-//        }
+        if(!RESET){
+          RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+          if(!RESET){
+            RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+          }
+          else{
+            break;
+          }
+        }
+        else{
+            break;
+        }
         rainbow();           
         unsigned long start_time2 = millis();
         unsigned long max_time2 = 5000; // 1 sec = 1000
@@ -197,12 +192,12 @@ void start(){
             display_gameboards();
           }
           while((time_left2 /1000) > 0){
-//            if(!RESET){
-//              RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//            }
-//            else{
-//              break;
-//            }
+            if(!RESET){
+              RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+            }
+            else{
+              break;
+            }
             time_left2 = max_time2 - (millis() - start_time2);
           }      
   }
@@ -334,18 +329,18 @@ void place_ship_three(int ship_num) {
   copy_board(P2_tempboard, P2_shipboard);
   while((time_left /1000) > 0){
     // Break if Reset / Start button is pressed
-//    if(!RESET){
-//      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//      if(!RESET){
-//        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//      }
-//      else{
-//        return;
-//      }
-//    }
-//    else{
-//      return;
-//    }
+    if(!RESET){
+      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+      if(!RESET){
+        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+      }
+      else{
+        return;
+      }
+    }
+    else{
+      return;
+    }
     time_left = max_time - (millis() - start_time);
     writeTime(time_left);
     // if not placed, place it
@@ -597,18 +592,18 @@ void place_bomb(){
   bool placed = false;
   while((time_left /1000) > 0){
     // Break if Reset / Start button is pressed
-//    if(!RESET){
-//      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//      if(!RESET){
-//        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//      }
-//      else{
-//        return;
-//      }
-//    }
-//    else{
-//      return;
-//    }
+    if(!RESET){
+      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+      if(!RESET){
+        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+      }
+      else{
+        return;
+      }
+    }
+    else{
+      return;
+    }
     if(time_left != 0){
       time_left = max_time - (millis() - start_time);
       writeTime(time_left);
@@ -792,7 +787,6 @@ int P1_board_numbering[32] = {16,15,14,13,13,14,15,16,12,11,10,9,9,10,11,12,8,7,
 int P2_strip_translation[32] = {4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5};
 int P2_board_numbering[32] = {13,14,15,16,16,15,14,13,9,10,11,12,12,11,10,9,5,6,7,8,8,7,6,5,1,2,3,4,4,3,2,1};
 void board_2_strip(int board[X_MAX][Y_MAX], int led_strip_temp[MAX_PIX], int player_num) {
-  //int led_strip_temp[MAX_PIX];
   // player_num = 1 or 2
   for(int i=0; i<max_pix; i++) {
     led_strip_temp[i] = 0;
@@ -978,11 +972,11 @@ void hit(){
   lcd.print("     Hit!");
   int three_sec = 3000;
   while(three_sec > 0 ){
-//    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
-//      Serial.print(startResetButton1[0]);
-//      RESET = true;
-//      break;
-//    }   
+    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
+      Serial.print(startResetButton1[0]);
+      RESET = true;
+      break;
+    }   
     delay(300);
     three_sec = three_sec - 300;
   }
@@ -994,11 +988,11 @@ void miss(){
   lcd.print("     Miss!");
   int three_sec = 3000;
   while(three_sec > 0 ){
-//    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
-//      Serial.print(startResetButton1[0]);
-//      RESET = true;
-//      break;
-//    }    
+    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
+      Serial.print(startResetButton1[0]);
+      RESET = true;
+      break;
+    }    
       delay(300);
       three_sec = three_sec - 300;
   }
@@ -1025,11 +1019,11 @@ void winner(int winner_num){
   }
   int three_sec = 3000;
   while(three_sec > 0 ){
-//    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
-//      Serial.print(startResetButton1[0]);
-//      RESET = true;
-//      break;
-//    }    
+    if (switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2])) {
+      Serial.print(startResetButton1[0]);
+      RESET = true;
+      break;
+    }    
       delay(300);
       three_sec = three_sec - 300;
   }
@@ -1078,16 +1072,16 @@ void rainbow() {
   uint16_t i, j;
   for(j=0; j<256; j++) {
     for(i=0; i<MAX_PIX; i++) {
-//      if (RESET){
-//        return;
-//      }
-//      RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//      if(!RESET){
-//        RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//      }
-//      if (RESET){
-//        return;
-//      }
+      if (RESET){
+        return;
+      }
+      RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+      if(!RESET){
+        RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+      }
+      if (RESET){
+        return;
+      }
       strip_1.setPixelColor(i, Wheel((i+j) & 255));
       strip_2.setPixelColor(i, Wheel2((i+j) & 255));
     }
@@ -1167,18 +1161,18 @@ void place_ship_one(int ship_num) {
   copy_board(P2_tempboard, P2_shipboard);
   while((time_left /1000) > 0){
     // Break if Reset / Start button is pressed
-//    if(!RESET){
-//      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
-//      if(!RESET){
-//        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
-//      }
-//      else{
-//        return;
-//      }
-//    }
-//    else{
-//      return;
-//    }
+    if(!RESET){
+      RESET = switchToggled(startResetButton2[0], &startResetButton2[1], &startResetButton2[2]);
+      if(!RESET){
+        RESET = switchToggled(startResetButton1[0], &startResetButton1[1], &startResetButton1[2]);
+      }
+      else{
+        return;
+      }
+    }
+    else{
+      return;
+    }
     time_left = max_time - (millis() - start_time);
     writeTime(time_left);
 
